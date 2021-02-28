@@ -17,7 +17,7 @@ module.exports = {
       rating: {
         type: Sequelize.INTEGER
       },
-      logo: {
+      logoURL: {
         type: Sequelize.STRING
       },
       createdAt: {

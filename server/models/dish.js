@@ -10,16 +10,42 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Dish.belongsTo(models.Vendor)
     }
   };
   Dish.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Name cannot be empty'
+        },
+        len: [4, 10]
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Description cannot be empty'
+        }
+      }
+    },
     imageURL: DataTypes.STRING,
-    amount: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
-    vendorId: DataTypes.INTEGER
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    vendorId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Vendor',
+        key: 'id',
+        as: 'vendorId',
+      }
+    },
   }, {
     sequelize,
     modelName: 'Dish',

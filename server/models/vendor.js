@@ -10,14 +10,31 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Vendor.hasMany(models.Dish)
     }
   };
   Vendor.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Name cannot be empty'
+        },
+        len: [4, 10]
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Description cannot be empty'
+        }
+      }
+    },
     rating: DataTypes.INTEGER,
-    logo: DataTypes.STRING
+    logoURL: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Vendor',
