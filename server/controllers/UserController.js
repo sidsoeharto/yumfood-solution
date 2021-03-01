@@ -6,6 +6,7 @@ class UserController {
   static async register (req, res, next) {
     try {
       const payload = {
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password
       }
@@ -19,7 +20,11 @@ class UserController {
         next({name: 'EMAIL_REGISTERED'})
       } else {
         let data = await User.create(payload)
-        res.status(201).json(data)
+        res.status(201).json({
+          id: data.id,
+          name: data.name,
+          email: data.email
+        })
       }
     } catch (err) {
       next(err)

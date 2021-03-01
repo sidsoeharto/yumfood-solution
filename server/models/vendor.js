@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'Name cannot be empty'
         },
-        len: [4, 10]
+        len: [4, 128]
       }
     },
     description: {

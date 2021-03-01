@@ -38,15 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.INTEGER,
       allowNull: false
-    },
-    vendorId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Vendor',
-        key: 'id',
-        as: 'vendorId',
-      }
-    },
+    }
   }, {
     sequelize,
     modelName: 'Dish',

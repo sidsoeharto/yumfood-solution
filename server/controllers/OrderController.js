@@ -22,13 +22,17 @@ class OrderController {
           order.Orders.map(el => {
             totalPrice += el.Dish.price
           })
+          res.status(200).json({total: totalPrice, payload: order})
+        })
+        .catch(err => {
+          next(err)
         })
     }
 
     static addOrder (req, res, next) {
       const payload = {
-        userId: Number(req.userData.id),
-        dishId: Number(req.body.dishId),
+        UserId: Number(req.userData.id),
+        DishId: Number(req.body.DishId),
         note: req.body.note,
         quantity: req.body.quantity
       }
@@ -36,7 +40,7 @@ class OrderController {
 
       Order.findOne({
         where: {
-          dishId: payload.dishId
+          DishId: payload.DishId
         }
       })
         .then(order => {
@@ -63,8 +67,8 @@ class OrderController {
     static updateOrder (req, res, next) {
       const orderId = Number(req.params.orderId)
       const payload = {
-        userId: Number(req.userData.id),
-        dishId: Number(req.body.dishId),
+        UserId: Number(req.userData.id),
+        DishId: Number(req.body.DishId),
         note: req.body.note,
         quantity: req.body.quantity
       }
@@ -104,7 +108,7 @@ class OrderController {
           } else if (!order) {
             next({name: 'NOT_FOUND'})
           }
-          return Order.destroy()
+          return Order.destroy({ where: {id: orderId}})
         })
         .then(() => {
           res.status(200).json({msg: "Successfully deleted order"})

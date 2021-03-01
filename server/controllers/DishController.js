@@ -12,7 +12,11 @@ class DishController {
           vendorId: id
         }
 
-        let newDish = await Dish.create(payload)
+        let newDish = await Dish.create(payload, {
+          options: { 
+            returning: ['name', 'description', 'imageURL', 'price', 'vendorId']
+          }
+        })
         res.status(201).json(newDish)
       } catch (err) {
         next(err)

@@ -13,12 +13,16 @@ class VendorController {
   static async readMenu (req, res, next) {
     const id = Number(req.params.id)
     try {
-      let vendor = await Vendor.findByPk({
+      let vendor = await Vendor.findOne({
         where: { id },
         include: [{
-          model: Dish
+          model: Dish,
+          attributes: { exclude: ['VendorId'] }
         }]
       })
+      if (!vendor) {
+        next({name: 'NOT_FOUND'})
+      }
       res.status(200).json(vendor)
     } catch (err) {
       next(err)
@@ -50,14 +54,16 @@ class VendorController {
         rating: req.body.rating,
         logoURL: req.body.logoURL
       }
-
-      let updatedVendor = await Vendor.update(payload, {
+      let vendor = await Vendor.findOne({
         where: {id}
-      })
+      });
 
-      if (!updatedVendor) {
+      if (!vendor) {
         next({name: 'NOT_FOUND'})
       } else {
+        let updatedVendor = await Vendor.update(payload, {
+          where: {id}
+        })
         res.status(200).json(payload)
       }
     } catch (err) {

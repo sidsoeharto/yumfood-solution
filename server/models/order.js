@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Order.belongsTo(models.User)
+      Order.belongsTo(models.Dish)
     }
   };
   Order.init({
-    userId: {
+    UserId: {
       type: DataTypes.INTEGER,
       references: {
           model: 'User',
@@ -22,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
           as: 'userId',
       }
     },
-    dishId: {
+    DishId: {
       type: DataTypes.INTEGER,
       references: {
-          model: 'Foods',
+          model: 'Dish',
           key: 'id',
-          as: 'foodId',
+          as: 'dishId',
       }
     },
     note: DataTypes.STRING,

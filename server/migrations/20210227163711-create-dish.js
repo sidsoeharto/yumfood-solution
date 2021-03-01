@@ -20,7 +20,7 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      vendorId: {
+      VendorId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

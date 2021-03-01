@@ -11,6 +11,22 @@ const errorHandler = (err, req, res, next) => {
       });
       messages = errors.join(', ')
       break;
+    case "INVALID_EMAIL_PASS":
+      statusCode = 400;
+      messages = "Email or password is incorrect"
+      break;
+    case "EMAIL_REGISTERED":
+      statusCode = 400;
+      messages = "Email already registered"
+      break;
+    case "NOT_FOUND":
+      statusCode = 404;
+      messages = "Error Not Found"
+      break;
+    case "JsonWebTokenError":
+      statusCode = 401;
+      messages = "You have to login first"
+      break;
     default:
       statusCode = 500;
       messages = "Internal Server Error"
