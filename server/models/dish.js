@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Dish.belongsTo(models.Vendor)
+      Dish.belongsToMany(models.User, { through: models.Order })
     }
   };
   Dish.init({

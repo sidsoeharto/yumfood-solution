@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Order)
+      User.belongsToMany(models.Dish, { through: models.Order })
     }
   };
   User.init({

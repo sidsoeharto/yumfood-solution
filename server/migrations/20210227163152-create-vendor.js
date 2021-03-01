@@ -20,6 +20,9 @@ module.exports = {
       logoURL: {
         type: Sequelize.STRING
       },
+      tags: {
+        type: Sequelize.ARRAY(Sequelize.TEXT)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
